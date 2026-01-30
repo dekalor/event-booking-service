@@ -1,7 +1,0 @@
-POST http://localhost:3000/signup
-Content-Type: application/json
-
-{
-    "email": "adeeka2@mailinator.com",
-    "password": "123456"
-}

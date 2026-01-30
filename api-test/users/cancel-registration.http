@@ -1,2 +1,0 @@
-DELETE http://localhost:3000/events/1/register
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkZWVrYTJAbWFpbGluYXRvci5jb20iLCJleHBpcmVkIjoxNzY5NzA2ODE1LCJ1c2VyX2lkIjoyfQ.CCl_B0n3FQhioIigBjK8-hg1N7Kh-bvMCB7kxP7mdQA

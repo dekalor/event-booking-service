@@ -1,2 +1,0 @@
-DELETE http://localhost:3000/events/10
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkZWVrYTNAbWFpbGluYXRvci5jb20iLCJleHBpcmVkIjoxNzY5NzAzMTk1LCJ1c2VyX2lkIjozfQ.G5T8B6uEdCc28yNWk9zjgFRJ-RTb5uJI1FKENDobAq0
