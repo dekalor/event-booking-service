@@ -124,3 +124,19 @@ func deleteEvent(context *gin.Context) {
 
 	context.JSON(http.StatusOK, gin.H{"message": "Event deleted successfully"})
 }
+
+func getEventParticipants(context *gin.Context) {
+	eventId, err := strconv.ParseInt(context.Param("id"), 10, 64)
+	if err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "Event ID is not valid"})
+		return
+	}
+
+	eventParticipants, err := models.GetEventParticipants(eventId)
+	if err != nil {
+		context.JSON(http.StatusNotFound, gin.H{"message": "Event dont have participants"})
+		return
+	}
+
+	context.JSON(http.StatusOK, eventParticipants)
+}

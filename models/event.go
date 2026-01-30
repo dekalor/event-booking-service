@@ -15,6 +15,14 @@ type Event struct {
 	UserID      int64
 }
 
+type EventParticipants struct {
+	ID          int64
+	Name        string
+	Description string
+	Location    string
+	Email       string
+}
+
 func (e *Event) Save() error {
 	query := `
 		INSERT INTO events(name, description, location, date_time, user_id)
@@ -141,4 +149,47 @@ func (e Event) CancelRegister(userId int64) error {
 	_, err = statement.Exec(e.ID, userId)
 
 	return err
+}
+
+func GetEventParticipants(id int64) ([]EventParticipants, error) {
+	query := `
+		SELECT 
+			e.id,
+			e.name,
+			e.description,
+			e.location,
+			u.email AS participant
+		FROM 
+			registrations r 
+			JOIN events e ON r.event_id = e.id
+			JOIN users u ON r.user_id = u.id
+		WHERE 
+			e.id = ?`
+
+	rows, err := db.DB.Query(query, id)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	result := make([]EventParticipants, 0)
+
+	for rows.Next() {
+		var row EventParticipants
+		err := rows.Scan(
+			&row.ID,
+			&row.Name,
+			&row.Description,
+			&row.Location,
+			&row.Email,
+		)
+
+		if err != nil {
+			return nil, err
+		}
+
+		result = append(result, row)
+	}
+
+	return result, nil
 }
