@@ -4,10 +4,11 @@ import (
 	"errors"
 	"time"
 
+	"example.com/event-booking/config"
 	"github.com/golang-jwt/jwt/v5"
 )
 
-const secretKey = "supersecret12312444555"
+var cfg config.Config
 
 func GenerateToken(email string, user_id int64) (string, error) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
@@ -16,7 +17,7 @@ func GenerateToken(email string, user_id int64) (string, error) {
 		"expired": time.Now().Add(time.Hour * 2).Unix(),
 	})
 
-	return token.SignedString([]byte(secretKey))
+	return token.SignedString([]byte(cfg.SecretKey))
 }
 
 func VerifyToken(token string) (int64, error) {
@@ -27,7 +28,7 @@ func VerifyToken(token string) (int64, error) {
 			return nil, errors.New("Unexpected signing method")
 		}
 
-		return []byte(secretKey), nil
+		return []byte(cfg.SecretKey), nil
 	})
 
 	if err != nil {
