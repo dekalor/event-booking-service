@@ -59,3 +59,27 @@ func (u *User) ValidateCredentials() error {
 
 	return nil
 }
+
+func GetAllUsers() ([]User, error) {
+	query := "SELECT * FROM users"
+	rows, err := db.DB.Query(query)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var users []User
+
+	for rows.Next() {
+		var event User
+		err := rows.Scan(&event.ID, &event.Email, &event.Password)
+
+		if err != nil {
+			return nil, err
+		}
+
+		users = append(users, event)
+	}
+
+	return users, nil
+}
